@@ -1,0 +1,46 @@
+#
+# Use this configuration file to control what RobotPy packages are installed
+# on your RoboRIO
+#
+
+[tool.robotpy]
+
+# Version of robotpy this project depends on
+robotpy_version = "2024.3.2.0"
+
+# Which extra RobotPy components should be installed
+# -> equivalent to `pip install robotpy[extra1, ...]
+robotpy_extras = [
+    # "all"
+     "apriltag",
+    # "commands2",
+     "cscore",
+    # "navx"
+    # "pathplannerlib"
+    # "phoenix5"
+    # "phoenix6"
+    # "playingwithfusion"
+     "rev",
+    # "romi"
+     "sim",
+    # "xrp"
+]
+
+# Other pip packages to install
+requires = [
+     "photonlibpy==2024.2.7",
+     "numpy",
+     "robotpy-commands-v2~=2024.3.1",
+     "robotpy-rev==2024.2.3",
+     "black==24.1.1; platform_machine != 'roborio'",
+     "coverage==7.4.1; platform_machine != 'roborio'",
+     "ast-selector==0.2.0; platform_machine != 'roborio'",
+     "asttokens==2.4.1; platform_machine != 'roborio'"
+]
+
+[tool.coverage.html]
+directory = "coverage_html_report"
+
+[tool.coverage.run]
+branch = true
+relative_files = true
