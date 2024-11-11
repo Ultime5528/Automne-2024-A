@@ -12,10 +12,12 @@ Order port numbers, ex:
 """
 
 # CAN
-shooter_motor_left: Final = 1
-shooter_motor_right: Final = 2
 
 # PWM
-
+shooter_motor_left: Final = 0
+shooter_motor_right: Final = 1
+horizontal_motor: Final = 2
+vertical_motor: Final = 3
+conveyor_motor: Final = 4
 
 # DIO
