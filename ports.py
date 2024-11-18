@@ -21,3 +21,7 @@ vertical_motor: Final = 3
 conveyor_motor: Final = 4
 
 # DIO
+horizontal_switch_left: Final = 0
+horizontal_switch_right: Final = 1
+horizontal_encoder_a: Final = 2
+horizontal_encoder_b: Final = 3

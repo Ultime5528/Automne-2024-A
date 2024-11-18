@@ -6,15 +6,15 @@ import wpilib
 from ntcore import NetworkTableInstance
 from wpilib import DriverStation, Timer
 
-from commands.shooter.manualshoot import ManualShoot
-
-
-from subsystems.shooter import Shooter
-
+from commands.horizontal.resethorizontal import HorizontalCalibration
+from subsystems.horizontal import Horizontal
 
 loop_delay = 30.0
 entry_name_check_time = "/CheckSaveLoop/time"
 entry_name_check_mirror = "/CheckSaveLoop/mirror"
+
+
+
 
 
 class Robot(commands2.TimedCommandRobot):
@@ -38,7 +38,7 @@ class Robot(commands2.TimedCommandRobot):
         """
         Subsystems
         """
-        self.shooter = Shooter()
+        self.horizontal = Horizontal()
 
         """
         Default subsystem commands
@@ -73,7 +73,8 @@ class Robot(commands2.TimedCommandRobot):
         """
         Send commands to dashboard to
         """
-        putCommandOnDashboard("Shooter", ManualShoot(self.shooter))
+        putCommandOnDashboard("Horizontal Calibration Left", HorizontalCalibration(self.horizontal, self.horizontal.isAtLeftSwitch, self.horizontal.moveLeft, self.horizontal.moveRight))
+        putCommandOnDashboard("Horizontal Calibration Right", HorizontalCalibration(self.horizontal, self.horizontal.isAtRightSwitch, self.horizontal.moveRight, self.horizontal.moveLeft))
 
     def autonomousInit(self):
         self.auto_command: commands2.Command = self.auto_chooser.getSelected()
