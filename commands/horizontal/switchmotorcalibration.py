@@ -1,24 +1,28 @@
 from typing import Callable
 
-from subsystems.horizontal import Horizontal
 from utils.safecommand import SafeCommand
 
 
-class HorizontalCalibration(SafeCommand):
+class SwitchMotorCalibration(SafeCommand):
 
-    def __init__(self, horizontal: Horizontal, isAtSwitch: Callable[[], bool], moveToSwitch: Callable[[], None], moveAwayFromSwitch: Callable[[], None]):
+    def __init__(
+        self,
+        isAtSwitch: Callable[[], bool],
+        moveToSwitch: Callable[[], None],
+        moveAwayFromSwitch: Callable[[], None],
+        stop: Callable[[], None],
+    ):
         super().__init__()
-        self.horizontal = horizontal
         self.isAtSwitch = isAtSwitch
         self.moveToSwitch = moveToSwitch
         self.moveAwayFromSwitch = moveAwayFromSwitch
-        self.addRequirements(horizontal)
+        self.stop = stop
         self.switch_was_pressed = False
 
-    def initialize(self):
+    def initialize(self) -> None:
         self.switch_was_pressed = False
 
-    def execute(self):
+    def execute(self) -> None:
         if self.isAtSwitch():
             self.moveAwayFromSwitch()
             self.switch_was_pressed = True
@@ -28,5 +32,5 @@ class HorizontalCalibration(SafeCommand):
     def isFinished(self) -> bool:
         return not self.isAtSwitch() and self.switch_was_pressed
 
-    def end(self, interrupted: bool):
-        self.horizontal.stop()
+    def end(self, interrupted: bool) -> None:
+        self.stop()

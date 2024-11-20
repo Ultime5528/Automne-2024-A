@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 from typing import Optional
+from winreg import HKEY_CLASSES_ROOT
 
+import commands.horizontal.switchmotorcalibration
 import commands2.button
 import wpilib
 from ntcore import NetworkTableInstance
 from wpilib import DriverStation, Timer
 
-from commands.horizontal.resethorizontal import HorizontalCalibration
+from commands.horizontal.horizontalcalibration import HorizontalCalibration
 from subsystems.horizontal import Horizontal
+from commands.horizontal.switchmotorcalibration import SwitchMotorCalibration
 
 loop_delay = 30.0
 entry_name_check_time = "/CheckSaveLoop/time"
 entry_name_check_mirror = "/CheckSaveLoop/mirror"
-
-
-
 
 
 class Robot(commands2.TimedCommandRobot):
@@ -73,8 +73,27 @@ class Robot(commands2.TimedCommandRobot):
         """
         Send commands to dashboard to
         """
-        putCommandOnDashboard("Horizontal Calibration Left", HorizontalCalibration(self.horizontal, self.horizontal.isAtLeftSwitch, self.horizontal.moveLeft, self.horizontal.moveRight))
-        putCommandOnDashboard("Horizontal Calibration Right", HorizontalCalibration(self.horizontal, self.horizontal.isAtRightSwitch, self.horizontal.moveRight, self.horizontal.moveLeft))
+        putCommandOnDashboard(
+            "Left Switch Calibration",
+            SwitchMotorCalibration(
+                self.horizontal.isAtLeftSwitch,
+                self.horizontal.moveLeft,
+                self.horizontal.moveRight,
+                self.horizontal.stop,
+            ),
+        )
+        putCommandOnDashboard(
+            "Right Switch Calibration",
+            SwitchMotorCalibration(
+                self.horizontal.isAtRightSwitch,
+                self.horizontal.moveRight,
+                self.horizontal.moveLeft,
+                self.horizontal.stop,
+            ),
+        )
+        putCommandOnDashboard(
+            "Horizontal Calibration", HorizontalCalibration(self.horizontal)
+        )
 
     def autonomousInit(self):
         self.auto_command: commands2.Command = self.auto_chooser.getSelected()

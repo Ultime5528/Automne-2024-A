@@ -13,10 +13,16 @@ class Horizontal(SafeSubsystem):
 
         self._motor = VictorSP(ports.horizontal_motor)
 
-        self._switch_left = Switch(Switch.Type.NormallyClosed, ports.horizontal_switch_left)
-        self._switch_right = Switch(Switch.Type.NormallyClosed, ports.horizontal_switch_right)
+        self._switch_left = Switch(
+            Switch.Type.NormallyClosed, ports.horizontal_switch_left
+        )
+        self._switch_right = Switch(
+            Switch.Type.NormallyClosed, ports.horizontal_switch_right
+        )
         self._encoder = wpilib.Encoder(
-            ports.horizontal_encoder_a, ports.horizontal_encoder_b, reverseDirection=True
+            ports.horizontal_encoder_a,
+            ports.horizontal_encoder_b,
+            reverseDirection=True,
         )
         self.addChild("motor", self._motor)
         self.addChild("encoder", self._encoder)
@@ -38,10 +44,10 @@ class Horizontal(SafeSubsystem):
         return self._switch_right.isPressed()
 
     def stop(self):
-        pass
+        self._motor.stopMotor()
 
     def moveRight(self):
-        pass
+        self._motor.set(1.0)
 
     def moveLeft(self):
-        pass
+        self._motor.set(-1.0)
