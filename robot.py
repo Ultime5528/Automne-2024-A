@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 from typing import Optional
+from winreg import HKEY_CLASSES_ROOT
 
+import commands.horizontal.switchmotorcalibration
 import commands2.button
 import wpilib
 from ntcore import NetworkTableInstance
-from wpilib import DriverStation, Timer
+from wpilib import DriverStation, Timer, RobotBase
 
-from commands.shooter.manualshoot import ManualShoot
-
-
-from subsystems.shooter import Shooter
-
+from commands.ballpusher.ballpusherload import BallPusherLoad
+from commands.horizontal.horizontalcalibration import HorizontalCalibration
+from subsystems.ballpusher import BallPusher
+from subsystems.horizontal import Horizontal
+from commands.horizontal.switchmotorcalibration import SwitchMotorCalibration
 
 loop_delay = 30.0
 entry_name_check_time = "/CheckSaveLoop/time"
@@ -38,7 +40,8 @@ class Robot(commands2.TimedCommandRobot):
         """
         Subsystems
         """
-        self.shooter = Shooter()
+        self.horizontal = Horizontal()
+        self.ballPusher = BallPusher()
 
         """
         Default subsystem commands
@@ -73,7 +76,30 @@ class Robot(commands2.TimedCommandRobot):
         """
         Send commands to dashboard to
         """
-        putCommandOnDashboard("Shooter", ManualShoot(self.shooter))
+        putCommandOnDashboard(
+            "Left Switch Calibration",
+            SwitchMotorCalibration(
+                self.horizontal.isAtLeftSwitch,
+                self.horizontal.moveLeft,
+                self.horizontal.moveRight,
+                self.horizontal.stop,
+            ),
+        )
+        putCommandOnDashboard(
+            "Right Switch Calibration",
+            SwitchMotorCalibration(
+                self.horizontal.isAtRightSwitch,
+                self.horizontal.moveRight,
+                self.horizontal.moveLeft,
+                self.horizontal.stop,
+            ),
+        )
+        putCommandOnDashboard(
+            "Horizontal Calibration", HorizontalCalibration(self.horizontal)
+        )
+        putCommandOnDashboard(
+            "Ball Pusher Load", BallPusherLoad(self.ballPusher)
+        )
 
     def autonomousInit(self):
         self.auto_command: commands2.Command = self.auto_chooser.getSelected()
@@ -91,7 +117,7 @@ class Robot(commands2.TimedCommandRobot):
     def checkPropertiesSaveLoop(self):
         from utils.property import mode, PropertyMode
 
-        if mode != PropertyMode.Local:
+        if not RobotBase.isSimulation() and mode != PropertyMode.Local:
             if DriverStation.isFMSAttached():
                 if self.timer_check.advanceIfElapsed(10.0):
                     wpilib.reportWarning(
