@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 from typing import Optional
-from winreg import HKEY_CLASSES_ROOT
 
-import commands.horizontal.switchmotorcalibration
 import commands2.button
 import wpilib
 from ntcore import NetworkTableInstance
@@ -24,7 +22,6 @@ class Robot(commands2.TimedCommandRobot):
         # robotInit fonctionne mieux avec les tests que __init__.
         wpilib.LiveWindow.enableAllTelemetry()
         wpilib.DriverStation.silenceJoystickConnectionWarning(True)
-        self.enableLiveWindowInTest(True)
 
         """
         Autonomous
@@ -79,27 +76,31 @@ class Robot(commands2.TimedCommandRobot):
         putCommandOnDashboard(
             "Left Switch Calibration",
             SwitchMotorCalibration(
+                self.horizontal,
                 self.horizontal.isAtLeftSwitch,
                 self.horizontal.moveLeft,
                 self.horizontal.moveRight,
                 self.horizontal.stop,
+                self.horizontal.setCalibrationOn,
+                self.horizontal.setCalibrationOff,
             ),
         )
         putCommandOnDashboard(
             "Right Switch Calibration",
             SwitchMotorCalibration(
+                self.horizontal,
                 self.horizontal.isAtRightSwitch,
                 self.horizontal.moveRight,
                 self.horizontal.moveLeft,
                 self.horizontal.stop,
+                self.horizontal.setCalibrationOn,
+                self.horizontal.setCalibrationOff,
             ),
         )
         putCommandOnDashboard(
             "Horizontal Calibration", HorizontalCalibration(self.horizontal)
         )
-        putCommandOnDashboard(
-            "Ball Pusher Load", BallPusherLoad(self.ballPusher)
-        )
+        putCommandOnDashboard("Ball Pusher Load", BallPusherLoad(self.ballPusher))
 
     def autonomousInit(self):
         self.auto_command: commands2.Command = self.auto_chooser.getSelected()

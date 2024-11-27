@@ -7,10 +7,13 @@ class SwitchMotorCalibration(SafeCommand):
 
     def __init__(
         self,
+        safeSubsystem,
         isAtSwitch: Callable[[], bool],
         moveToSwitch: Callable[[], None],
         moveAwayFromSwitch: Callable[[], None],
         stop: Callable[[], None],
+        setCalibrationOn: Callable[[], bool],
+        setCalibrationOff: Callable[[], bool],
     ):
         super().__init__()
         self.isAtSwitch = isAtSwitch
@@ -18,9 +21,11 @@ class SwitchMotorCalibration(SafeCommand):
         self.moveAwayFromSwitch = moveAwayFromSwitch
         self.stop = stop
         self.switch_was_pressed = False
+        self.addRequirements(safeSubsystem)
 
     def initialize(self) -> None:
         self.switch_was_pressed = False
+        self.setCalibrationOn()
 
     def execute(self) -> None:
         if self.isAtSwitch():
@@ -34,3 +39,4 @@ class SwitchMotorCalibration(SafeCommand):
 
     def end(self, interrupted: bool) -> None:
         self.stop()
+        self.setCalibrationOff()

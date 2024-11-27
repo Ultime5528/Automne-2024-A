@@ -9,7 +9,7 @@ class BallPusherLoad(SafeCommand):
 
     open_time = autoproperty(0.75)
 
-    def __init__(self, ballPusher : BallPusher) -> None:
+    def __init__(self, ballPusher: BallPusher) -> None:
         super().__init__()
         self.ballPusher = ballPusher
         self.addRequirements(ballPusher)

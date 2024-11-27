@@ -1,3 +1,4 @@
+from multiprocessing.util import Finalize
 from typing import Final
 
 """
@@ -25,3 +26,7 @@ horizontal_switch_left: Final = 0
 horizontal_switch_right: Final = 1
 horizontal_encoder_a: Final = 2
 horizontal_encoder_b: Final = 3
+vertical_switch_up: Final = 4
+vertical_switch_down: Final = 5
+vertical_encoder_a: Final = 6
+vertical_encoder_b: Final = 7
