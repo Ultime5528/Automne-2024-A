@@ -53,9 +53,9 @@ class Vertical(SafeSubsystem):
         self._motor.stopMotor()
 
     def move(self, speed: float):
-        if self.isAtUpSwitch() and speed > 0:
+        if self.isAtUpSwitch() and speed < 0:
             speed = 0
-        elif self.isAtDownSwitch() and speed < 0:
+        elif self.isAtDownSwitch() and speed > 0:
             speed = 0
 
         self._motor.set(speed)
