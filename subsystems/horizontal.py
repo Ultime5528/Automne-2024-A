@@ -3,14 +3,12 @@ from wpilib import VictorSP, RobotBase
 from wpilib.simulation import PWMSim, EncoderSim
 
 import ports
-from ports import horizontal_switch_left, horizontal_switch_right
 from utils.property import autoproperty
 from utils.safesubsystem import SafeSubsystem
 from utils.switch import Switch
 
 
 class Horizontal(SafeSubsystem):
-
     motor_position_min = autoproperty(0.0)
     motor_position_max = autoproperty(65.0)
     speed = autoproperty(1.0)
@@ -57,17 +55,18 @@ class Horizontal(SafeSubsystem):
         self._motor.stopMotor()
 
     def moveRight(self):
-        self._motor.set(self.speed)
+        self.move(self.speed)
 
     def moveLeft(self):
-        self._motor.set(-self.speed)
+        self.move(-self.speed)
 
-    def periodic(self) -> None:
+    def move(self, speed: float):
+        if self.isAtRightSwitch() and speed > 0:
+            speed = 0
+        elif self.isAtLeftSwitch() and speed < 0:
+            speed = 0
 
-        # Kill switch
-        if self._switch_left.isPressed() or self._switch_right.isPressed():
-            if not self.isInCalibrationMode:
-                self.stop()
+        self._motor.set(speed)
 
     def simulationPeriodic(self) -> None:
 

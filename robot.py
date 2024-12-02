@@ -7,10 +7,11 @@ from ntcore import NetworkTableInstance
 from wpilib import DriverStation, Timer, RobotBase
 
 from commands.ballpusher.ballpusherload import BallPusherLoad
-from commands.horizontal.horizontalcalibration import HorizontalCalibration
+from commands.horizontal.rotatehorizontal import RotateHorizontal
+from commands.vertical.rotatevertical import RotateVertical
 from subsystems.ballpusher import BallPusher
 from subsystems.horizontal import Horizontal
-from commands.horizontal.switchmotorcalibration import SwitchMotorCalibration
+from subsystems.vertical import Vertical
 
 loop_delay = 30.0
 entry_name_check_time = "/CheckSaveLoop/time"
@@ -26,18 +27,19 @@ class Robot(commands2.TimedCommandRobot):
         """
         Autonomous
         """
-
         self.auto_command: Optional[commands2.Command] = None
         self.auto_chooser = wpilib.SendableChooser()
 
         """
         Joysticks
         """
+        self.xbox_remote = commands2.button.CommandXboxController(0)
 
         """
         Subsystems
         """
         self.horizontal = Horizontal()
+        self.vertical = Vertical()
         self.ballPusher = BallPusher()
 
         """
@@ -74,33 +76,12 @@ class Robot(commands2.TimedCommandRobot):
         Send commands to dashboard to
         """
         putCommandOnDashboard(
-            "Left Switch Calibration",
-            SwitchMotorCalibration(
-                self.horizontal,
-                self.horizontal.isAtLeftSwitch,
-                self.horizontal.moveLeft,
-                self.horizontal.moveRight,
-                self.horizontal.stop,
-                self.horizontal.setCalibrationOn,
-                self.horizontal.setCalibrationOff,
-            ),
+            "Vertical", RotateVertical(self.vertical, self.xbox_remote)
         )
         putCommandOnDashboard(
-            "Right Switch Calibration",
-            SwitchMotorCalibration(
-                self.horizontal,
-                self.horizontal.isAtRightSwitch,
-                self.horizontal.moveRight,
-                self.horizontal.moveLeft,
-                self.horizontal.stop,
-                self.horizontal.setCalibrationOn,
-                self.horizontal.setCalibrationOff,
-            ),
+            "Horizontal", RotateHorizontal(self.horizontal, self.xbox_remote)
         )
-        putCommandOnDashboard(
-            "Horizontal Calibration", HorizontalCalibration(self.horizontal)
-        )
-        putCommandOnDashboard("Ball Pusher Load", BallPusherLoad(self.ballPusher))
+        putCommandOnDashboard("Ball Pusher", BallPusherLoad(self.ballPusher))
 
     def autonomousInit(self):
         self.auto_command: commands2.Command = self.auto_chooser.getSelected()
