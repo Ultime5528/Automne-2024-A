@@ -2,8 +2,8 @@ import rev
 from pytest import approx
 from wpilib.simulation import stepTiming
 
-from commands.shooter.manualshoot import ManualShoot
-from commands.shooter.waitshootspeed import WaitShootSpeed
+from commands.previousyearshooter.previousyearmanualshoot import PreviousYearManualShoot
+from commands.previousyearshooter.waitshootspeed import WaitShootSpeed
 from robot import Robot
 
 
@@ -55,7 +55,7 @@ def test_settings(control, robot):
 
 def test_requirements(control, robot):
     with control.run_robot():
-        cmd = ManualShoot(robot.shooter)
+        cmd = PreviousYearManualShoot(robot.shooter)
         assert cmd.hasRequirement(robot.shooter)
         cmd = WaitShootSpeed(robot.shooter)
         assert not cmd.hasRequirement(robot.shooter)

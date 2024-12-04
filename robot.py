@@ -8,9 +8,12 @@ from wpilib import DriverStation, Timer, RobotBase
 
 from commands.ballpusher.ballpusherload import BallPusherLoad
 from commands.horizontal.rotatehorizontal import RotateHorizontal
+from commands.shooter.shooterstartmotors import ShooterStartMotors
+from commands.shooter.shooterstopmotors import ShooterStopMotors
 from commands.vertical.rotatevertical import RotateVertical
 from subsystems.ballpusher import BallPusher
 from subsystems.horizontal import Horizontal
+from subsystems.shooter import Shooter
 from subsystems.vertical import Vertical
 
 loop_delay = 30.0
@@ -41,11 +44,17 @@ class Robot(commands2.TimedCommandRobot):
         self.horizontal = Horizontal()
         self.vertical = Vertical()
         self.ballPusher = BallPusher()
+        self.shooter = Shooter()
 
         """
         Default subsystem commands
         """
-
+        self.horizontal.setDefaultCommand(
+            RotateHorizontal(self.horizontal, self.xbox_remote)
+        )
+        self.vertical.setDefaultCommand(
+            RotateVertical(self.vertical, self.xbox_remote)
+        )
         """
         NetworkTables entries for properties save loop check
         """
@@ -66,10 +75,13 @@ class Robot(commands2.TimedCommandRobot):
         """
         Bind commands to buttons on controllers and joysticks
         """
-        pass
+        self.xbox_remote.a().onTrue(ShooterStartMotors(self.shooter))
+        self.xbox_remote.b().onTrue(ShooterStopMotors(self.shooter))
+        self.xbox_remote.rightTrigger().onTrue(BallPusherLoad(self.ballPusher))
 
     def setupSubsystemOnDashboard(self):
-        wpilib.SmartDashboard.putData("Shooter", self.shooter)
+        #wpilib.SmartDashboard.putData("Shooter", self.shooter)
+        pass
 
     def setupCommandsOnDashboard(self):
         """

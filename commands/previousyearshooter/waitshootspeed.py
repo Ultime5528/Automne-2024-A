@@ -2,7 +2,7 @@ from typing import NewType
 
 import wpilib
 
-from subsystems.shooter import Shooter
+from subsystems.shooterpreviousyear import Shooter
 from utils.property import autoproperty
 from utils.safecommand import SafeCommand
 
