@@ -59,14 +59,14 @@ class Robot(commands2.TimedCommandRobot):
         Setups
         """
         self.setupButtons()
-        # self.setupSubsystemOnDashboard()
+              # self.setupSubsystemOnDashboard()
         self.setupCommandsOnDashboard()
 
     def setupButtons(self):
         """
         Bind commands to buttons on controllers and joysticks
         """
-        pass
+        self.xbox_remote.button(1).onTrue(BallPusherLoad(self.ballPusher))
 
     def setupSubsystemOnDashboard(self):
         wpilib.SmartDashboard.putData("Shooter", self.shooter)

@@ -1,0 +1,101 @@
+{
+  "Docking": {
+    "Data": [
+      "DockSpace ID=0x8B93E3BD Window=0xA787BDB4 Pos=0,19 Size=1366,686 CentralNode=1"
+    ]
+  },
+  "MainWindow": {
+    "GLOBAL": {
+      "fps": "120",
+      "height": "705",
+      "maximized": "1",
+      "style": "0",
+      "userScale": "2",
+      "width": "1366",
+      "xpos": "0",
+      "ypos": "23"
+    }
+  },
+  "Window": {
+    "###/LiveWindow/Ungrouped/Scheduler": {
+      "Collapsed": "0",
+      "Pos": "149,286",
+      "Size": "400,200"
+    },
+    "###/SmartDashboard/ClimberLeft/ExtendClimber.Left": {
+      "Collapsed": "0",
+      "Pos": "362,288",
+      "Size": "129,65"
+    },
+    "###/SmartDashboard/ClimberLeft/LockRatchet.Left": {
+      "Collapsed": "0",
+      "Pos": "49,215",
+      "Size": "117,65"
+    },
+    "###/SmartDashboard/ClimberLeft/RetractClimber.Left": {
+      "Collapsed": "0",
+      "Pos": "350,374",
+      "Size": "136,65"
+    },
+    "###/SmartDashboard/ClimberLeft/UnlockRatchet.Left": {
+      "Collapsed": "0",
+      "Pos": "194,218",
+      "Size": "129,65"
+    },
+    "###/SmartDashboard/ClimberRight/ExtendClimber.Right": {
+      "Collapsed": "0",
+      "Pos": "90,460",
+      "Size": "136,65"
+    },
+    "###/SmartDashboard/ClimberRight/LockRatchet.Right": {
+      "Collapsed": "0",
+      "Pos": "52,297",
+      "Size": "123,65"
+    },
+    "###/SmartDashboard/ClimberRight/RetractClimber.Right": {
+      "Collapsed": "0",
+      "Pos": "291,470",
+      "Size": "142,65"
+    },
+    "###/SmartDashboard/ClimberRight/UnlockRatchet.Right": {
+      "Collapsed": "0",
+      "Pos": "190,300",
+      "Size": "136,65"
+    },
+    "###/SmartDashboard/Horizontal Calibration commands/Horizo": {
+      "Collapsed": "0",
+      "Pos": "411,97",
+      "Size": "148,65"
+    },
+    "###/SmartDashboard/Intake/PickUp": {
+      "Collapsed": "0",
+      "Pos": "406,136",
+      "Size": "110,65"
+    },
+    "###NetworkTables": {
+      "Collapsed": "0",
+      "Pos": "617,87",
+      "Size": "698,552"
+    },
+    "###NetworkTables Info": {
+      "Collapsed": "0",
+      "Pos": "575,343",
+      "Size": "750,145"
+    },
+    "###NetworkTables Settings": {
+      "Collapsed": "0",
+      "Pos": "28,28",
+      "Size": "329,169"
+    },
+    "Debug##Default": {
+      "Collapsed": "0",
+      "Pos": "60,60",
+      "Size": "400,400"
+    },
+    "DockSpaceViewport_11111111": {
+      "Collapsed": "0",
+      "Pos": "0,19",
+      "Size": "1366,686"
+    }
+  }
+}

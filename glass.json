@@ -1,0 +1,75 @@
+{
+  "NetworkTables": {
+    "persistent": {
+      "Properties": {
+        "BallPusher": {
+          "open": true
+        },
+        "BallPusherLoad": {
+          "open": true
+        },
+        "Climber": {
+          "open": false
+        },
+        "ClimberLeft": {
+          "open": false
+        },
+        "DriveField": {
+          "open": false
+        },
+        "Intake": {
+          "open": false
+        },
+        "SwerveModule": {
+          "open": false
+        },
+        "open": true
+      }
+    },
+    "transitory": {
+      "Shuffleboard": {
+        "open": true
+      },
+      "SmartDashboard": {
+        "Ball Pusher Load commands": {
+          "BallPusherLoad": {
+            "open": true
+          },
+          "open": true
+        },
+        "ClimberRight": {
+          "open": false
+        },
+        "Intake": {
+          "open": false
+        },
+        "open": true
+      }
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/SmartDashboard/Ball Pusher Load commands/BallPusherLoad": "Command",
+      "/SmartDashboard/Horizontal Calibration commands/HorizontalCalibration": "Command",
+      "/SmartDashboard/Left Switch Calibration commands/SwitchMotorCalibration": "Command",
+      "/SmartDashboard/Right Switch Calibration commands/SwitchMotorCalibration": "Command"
+    },
+    "windows": {
+      "/LiveWindow/Ungrouped/Scheduler": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Horizontal Calibration commands/HorizontalCalibration": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables Info": {
+    "elastic@2": {
+      "open": false
+    }
+  }
+}
